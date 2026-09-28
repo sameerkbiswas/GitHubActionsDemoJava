@@ -22,8 +22,8 @@ jobs:
       - name: Build with Maven
         run: mvn clean package
 
-      - name: Build with Docker
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/github-actions-demo-0.0.1 .
+#      - name: Build with Docker
+#        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/github-actions-demo-0.0.1 .
 
       - name: Build and push Docker image
         uses: mr-smithers-excellent/docker-build-push@v7
