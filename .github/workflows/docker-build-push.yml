@@ -46,7 +46,6 @@ jobs:
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           ssh_user: ${{ secrets.SSH_USER }}
           pull: true # Update images when pulling
-          compose_file: docker-compose.yml
           script: |
             docker-compose down
             docker-compose up -d
