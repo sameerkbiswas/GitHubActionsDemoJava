@@ -1,8 +1,17 @@
-from sourcemation/jdk-25
-
-# Copy your Java application JAR file into the image
-COPY GitHubActionsDemoJava-0.0.1-SNAPSHOT.jar /app/GitHubActionsDemoJava-0.0.1-SNAPSHOT.jar
-# Set the working directory
+# Use the official Eclipse Temurin Java 25 runtime base image
+FROM eclipse-temurin:25-jre
 WORKDIR /app
-# Run the Java application
-CMD ["java", "-jar", "GitHubActionsDemoJava-0.0.1-SNAPSHOT.jar"]
+
+# Create a non-root user to avoid running the container as root
+RUN useradd -m appuser && chown -R appuser /app
+USER appuser
+
+# Copy your pre-built JAR file into the container
+COPY target/your-app.jar app.jar
+
+# Standard JVM container memory optimizations
+ENV JAVA_OPTS="-XX:MaxRAMPercentage=75.0"
+
+EXPOSE 8080
+
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
