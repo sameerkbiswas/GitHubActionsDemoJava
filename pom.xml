@@ -9,8 +9,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.example.cicd</groupId>
-    <artifactId>GitHubActionsDemoJava</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>github-actions-demo</artifactId>
+    <version>0.0.1</version>
     <name>GitHubActionsDemoJava</name>
     <description>GitHub Actions Demo for Java with Spring Boot and Maven</description>
     <url/>
