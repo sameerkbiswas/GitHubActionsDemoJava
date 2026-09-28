@@ -45,5 +45,7 @@ jobs:
           ssh_host: ${{ secrets.SSH_HOST }}
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           ssh_user: ${{ secrets.SSH_USER }}
-          pull: true # Update images when pulling
-          run: true # Run docker-compose up after pulling
+          port: 8080
+          script: |
+            docker image pull ${{ secrets.DOCKER_USERNAME }}/github-actions-demo-0.0.1
+            docker container run -d --name flask -p 80:5000 ${{ secrets.DOCKER_USERNAME }}/github-actions-demo-0.0.1
