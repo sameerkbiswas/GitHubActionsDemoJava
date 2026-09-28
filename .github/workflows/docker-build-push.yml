@@ -20,12 +20,12 @@ jobs:
           java-version: '25'
 
       - name: Build with Docker
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/githubactionsdemojava .
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/github-actions-demo .
 
       - name: Build and push Docker image
         uses: mr-smithers-excellent/docker-build-push@v7
         with:
-          image: ${{ secrets.DOCKER_USERNAME }}/githubactionsdemojava
+          image: ${{ secrets.DOCKER_USERNAME }}/github-actions-demo
           registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}

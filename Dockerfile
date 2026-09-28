@@ -7,7 +7,7 @@ RUN useradd -m appuser && chown -R appuser /app
 USER appuser
 
 # Copy your pre-built JAR file into the container
-COPY target/your-app.jar app.jar
+COPY target/github-actions-demo.jar app.jar
 
 # Standard JVM container memory optimizations
 ENV JAVA_OPTS="-XX:MaxRAMPercentage=75.0"
