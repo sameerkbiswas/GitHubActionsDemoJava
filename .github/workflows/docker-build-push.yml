@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
         name: Checkout docker compose files
 
       - uses: humbertocrispim/ssh-docker-compose-action@v1.0.0

@@ -1,17 +1,30 @@
-# Use the official Eclipse Temurin Java 25 runtime base image
-FROM eclipse-temurin:25-jre
+# --- Stage 1: Build the application ---
+FROM maven:3.9-eclipse-temurin-25 AS builder
+WORKDIR /build
+
+# Copy the build configuration and source code
+COPY pom.xml .
+COPY src ./src
+
+# Compile and package the application
+RUN mvn clean package -DskipTests
+
+# --- Stage 2: Create the lightweight runtime image ---
+FROM eclipse-temurin:25-jre-alpine
 WORKDIR /app
 
-# Create a non-root user to avoid running the container as root
-RUN useradd -m appuser && chown -R appuser /app
+# Create a non-root user for security
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 USER appuser
 
-# Copy your pre-built JAR file into the container
-#COPY target/github-actions-demo-0.0.1.jar github-actions-demo-0.0.1.jar
+# Copy the compiled JAR file from the builder stage
+COPY --from=builder /build/target/*.jar github-actions-demo-0.0.1.jar
 
-# Standard JVM container memory optimizations
-ENV JAVA_OPTS="-XX:MaxRAMPercentage=75.0"
-
+# Expose the application port (change if your app uses a different port)
 EXPOSE 8080
 
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar github-actions-demo-0.0.1.jar"]
+# Configure production memory allocations using Java environment variables
+ENV JAVA_TOOL_OPTIONS="-XX:MaxRAMPercentage=80.0 -XX:InitialRAMPercentage=80.0"
+
+# Execute the application
+ENTRYPOINT ["java", "-jar", "github-actions-demo-0.0.1.jar"]
