@@ -46,6 +46,7 @@ jobs:
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           ssh_user: ${{ secrets.SSH_USER }}
           script: |
+            sudo groupadd docker
             sudo usermod -aG docker ${{ secrets.SSH_USER }}
             newgrp docker
             sudo apt update && sudo apt install -y bzip2
