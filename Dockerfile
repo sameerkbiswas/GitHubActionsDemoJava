@@ -5,7 +5,7 @@ RUN groupadd --system appgroup && \
 
 USER appuser
 WORKDIR /app
-COPY target/*.jar /app/github-actions-demo-0.0.1.jar
+COPY /app/target/*.jar /app/github-actions-demo-0.0.1.jar
 
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/app/github-actions-demo-0.0.1.jar"]
