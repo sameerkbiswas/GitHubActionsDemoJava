@@ -13,7 +13,7 @@ RUN apt update && apt install -y maven && rm -rf /var/lib/apt/lists/*
 RUN mvn clean package -DskipTests
 
 # --- Stage 2: Create the lightweight runtime image ---
-FROM eclipse-temurin:25-jre-alpine
+FROM eclipse-temurin:25-jre-ubi10-minimal
 WORKDIR /app
 
 # Create a non-root user for security
