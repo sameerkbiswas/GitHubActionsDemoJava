@@ -47,6 +47,5 @@ jobs:
           ssh_user: ${{ secrets.SSH_USER }}
           script: |
             sudo chmod 666 /var/run/docker.sock
-            sudo apt update && sudo apt install -y bzip2
             docker image pull ${{ secrets.DOCKER_USERNAME }}/github-actions-demo-0.0.1
             docker container run -d -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/github-actions-demo-0.0.1
