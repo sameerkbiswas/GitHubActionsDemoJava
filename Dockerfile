@@ -17,7 +17,7 @@ FROM eclipse-temurin:8u504-b01-jre-ubi10-minimal
 WORKDIR /app
 
 # Create a non-root user for security
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+RUN sudo addgroup -S appgroup && sudo adduser -S appuser -G appgroup
 USER appuser
 
 # Copy the compiled JAR file from the builder stage
