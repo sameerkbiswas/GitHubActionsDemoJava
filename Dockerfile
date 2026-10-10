@@ -1,5 +1,5 @@
 # --- Stage 1: Build the application ---
-FROM maven:3.9-eclipse-temurin-25 AS builder
+FROM eclipse-temurin:25 AS builder
 WORKDIR /build
 
 # Copy the build configuration and source code
