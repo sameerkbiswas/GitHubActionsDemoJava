@@ -13,15 +13,15 @@ RUN apt update && apt install -y maven && rm -rf /var/lib/apt/lists/*
 RUN mvn clean package -DskipTests
 
 # --- Stage 2: Create the lightweight runtime image ---
-FROM eclipse-temurin:25.0.4.1_1-jre-ubi10-minimal
-WORKDIR /app
+#FROM eclipse-temurin:25.0.4.1_1-jre-ubi10-minimal
+#WORKDIR /app
 
 # Create a non-root user for security
 #RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 #USER appuser
 
 # Copy the compiled JAR file from the builder stage
-COPY --from=builder /build/target/*.jar github-actions-demo-0.0.1.jar
+#COPY --from=builder /build/target/*.jar github-actions-demo-0.0.1.jar
 
 # Expose the application port (change if your app uses a different port)
 EXPOSE 8080
@@ -30,4 +30,4 @@ EXPOSE 8080
 #ENV JAVA_TOOL_OPTIONS="-XX:MaxRAMPercentage=80.0 -XX:InitialRAMPercentage=80.0"
 
 # Execute the application
-ENTRYPOINT ["java", "-jar", "github-actions-demo-0.0.1.jar"]
+ENTRYPOINT ["java", "-jar", "/build/target/github-actions-demo-0.0.1.jar"]
