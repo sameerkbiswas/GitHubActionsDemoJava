@@ -7,10 +7,10 @@ COPY pom.xml .
 COPY src ./src
 
 # Install Maven
-# RUN apt update && apt install -y maven && rm -rf /var/lib/apt/lists/*
+RUN apt update && apt install -y maven && rm -rf /var/lib/apt/lists/*
 
 # Compile and package the application
-# RUN mvn clean package -DskipTests
+RUN mvn clean package -DskipTests
 
 # --- Stage 2: Create the lightweight runtime image ---
 FROM eclipse-temurin:25.0.4.1_1-jre-ubi10-minimal
