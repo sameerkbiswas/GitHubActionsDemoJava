@@ -1,5 +1,5 @@
 # --- Stage 1: Build the application ---
-FROM eclipse-temurin:25.0.4.1_1-jre-ubi10-minimal
+FROM eclipse-temurin:25-ubi10-minimal AS builder
 WORKDIR /build
 
 # Copy the build configuration and source code
