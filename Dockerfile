@@ -17,8 +17,8 @@ FROM eclipse-temurin:25.0.4.1_1-jre-ubi10-minimal
 WORKDIR /app
 
 # Create a non-root user for security
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-USER appuser
+#RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+#USER appuser
 
 # Copy the compiled JAR file from the builder stage
 COPY --from=builder /build/target/*.jar github-actions-demo-0.0.1.jar
