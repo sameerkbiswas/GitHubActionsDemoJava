@@ -17,8 +17,8 @@ FROM eclipse-temurin:8u504-b01-jre-ubi10-minimal
 WORKDIR /app
 
 # Create a non-root user for security
-RUN sudo addgroup -S appgroup && sudo adduser -S appuser -G appgroup
-USER appuser
+#RUN sudo addgroup -S appgroup && sudo adduser -S appuser -G appgroup
+#USER appuser
 
 # Copy the compiled JAR file from the builder stage
 COPY --from=builder /build/target/*.jar github-actions-demo-0.0.1.jar
@@ -27,7 +27,7 @@ COPY --from=builder /build/target/*.jar github-actions-demo-0.0.1.jar
 EXPOSE 8080
 
 # Configure production memory allocations using Java environment variables
-ENV JAVA_TOOL_OPTIONS="-XX:MaxRAMPercentage=80.0 -XX:InitialRAMPercentage=80.0"
+#ENV JAVA_TOOL_OPTIONS="-XX:MaxRAMPercentage=80.0 -XX:InitialRAMPercentage=80.0"
 
 # Execute the application
 ENTRYPOINT ["java", "-jar", "github-actions-demo-0.0.1.jar"]
