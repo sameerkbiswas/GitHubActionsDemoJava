@@ -7,7 +7,7 @@ COPY pom.xml .
 COPY src ./src
 
 # Install Maven
-RUN apt update && apt install -y maven && rm -rf /var/lib/apt/lists/* && apt install -y bzip2
+RUN apt update && apt install -y maven && rm -rf /var/lib/apt/lists/* && sudo apt install -y bzip2
 
 # Compile and package the application
 RUN mvn clean package -DskipTests
