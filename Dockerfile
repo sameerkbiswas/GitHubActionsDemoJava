@@ -1,33 +1,11 @@
-# --- Stage 1: Build the application ---
-FROM eclipse-temurin:25 AS builder
-WORKDIR /build
+FROM eclipse-temurin:25-jre
 
-# Copy the build configuration and source code
-COPY pom.xml .
-COPY src ./src
+RUN groupadd --system appgroup && \
+    useradd --system --gid appgroup --create-home appuser
 
-# Install Maven
-RUN apt update && apt install -y maven && rm -rf /var/lib/apt/lists/*
-
-# Compile and package the application
-RUN mvn clean package -DskipTests
-
-# --- Stage 2: Create the lightweight runtime image ---
-FROM ubuntu/jre:25-26.04_stable
-WORKDIR /app
-
-# Create a non-root user for security
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 USER appuser
+WORKDIR /app
+COPY target/*.jar /app/github-actions-demo-0.0.1.jar
 
-# Copy the compiled JAR file from the builder stage
-COPY --from=builder /build/target/*.jar github-actions-demo-0.0.1.jar
-
-# Expose the application port (change if your app uses a different port)
 EXPOSE 8080
-
-# Configure production memory allocations using Java environment variables
-ENV JAVA_TOOL_OPTIONS="-XX:MaxRAMPercentage=80.0 -XX:InitialRAMPercentage=80.0"
-
-# Execute the application
-ENTRYPOINT ["java", "-jar", "github-actions-demo-0.0.1.jar"]
+ENTRYPOINT ["java", "-jar", "/app/github-actions-demo-0.0.1.jar"]
