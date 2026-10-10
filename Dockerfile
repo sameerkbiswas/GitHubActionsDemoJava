@@ -13,12 +13,12 @@ RUN apt update && apt install -y maven && rm -rf /var/lib/apt/lists/*
 RUN mvn clean package -DskipTests
 
 # --- Stage 2: Create the lightweight runtime image ---
-FROM eclipse-temurin:8u504-b01-jre-ubi10-minimal
+FROM eclipse-temurin:25.0.4.1_1-jre-ubi10-minimal
 WORKDIR /app
 
 # Create a non-root user for security
-#RUN sudo addgroup -S appgroup && sudo adduser -S appuser -G appgroup
-#USER appuser
+RUN sudo addgroup -S appgroup && sudo adduser -S appuser -G appgroup
+USER appuser
 
 # Copy the compiled JAR file from the builder stage
 COPY --from=builder /build/target/*.jar github-actions-demo-0.0.1.jar
